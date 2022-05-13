@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='windows-1251'?>
+<class-mapping>
+	<class name="entities.well.Well">
+		<attribute name="id" type="java.lang.Integer" column="id" mandatory="false"/>
+		<attribute name="name" type="java.lang.String" column="name" mandatory="false"/>
+		
+		<insert>
+			<sql clause="
+				INSERT INTO WELL (name)
+					VALUES(?)">
+					<attribute name="name"/>
+			</sql>
+		</insert>
+		
+		<update>
+		<sql clause="
+			UPDATE WELL
+				 SET name= ?
+				 WHERE id = ?">
+			<attribute name="name"/>
+			<attribute name="id"/>
+		</sql>
+		</update>
+		
+		<delete>
+			<sql clause="
+				DELETE FROM WELL 
+					WHERE id = ?">
+					<attribute name="id"/>
+			</sql>
+		</delete>
+	</class>
+</class-mapping>

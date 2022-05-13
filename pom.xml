@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>ru.itis</groupId>
+	<artifactId>gwt_mvp</artifactId>
+	<packaging>gwt-app</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>gwt_mvp</name>
+	<description>Basic GWT Maven setup.</description>
+
+	<properties>
+		<!-- GWT -->
+		<gwt.version>2.8.0</gwt.version>
+		<gwt.maven.plugin.version>1.0-rc-6</gwt.maven.plugin.version>
+
+		<!-- Maven -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- WebApp/War Output Directory -->
+		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+	</properties>
+	<repositories>
+		<repository>
+			<id>repo</id>
+			<name>repo</name>
+			<url>file:${project.basedir}/lib</url>
+		</repository>
+	</repositories>
+	<build>
+		<!-- Compiled Classes -->
+		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<!-- Java -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<!-- GWT -->
+			<!-- https://tbroyer.github.io/gwt-maven-plugin/usage.html -->
+			<!-- http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22net.ltgt.gwt.maven%22%20AND%20a%3A%22gwt-maven-plugin%22 -->
+			<!-- Requires Java 1.7+ -->
+			<plugin>
+				<groupId>net.ltgt.gwt.maven</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwt.maven.plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<!-- Eclipse will work with module naming in the gwt-app config only -->
+					<moduleName>ru.itis.gwt_mvp.App</moduleName>
+					<moduleShortName>App</moduleShortName>
+					<webappDirectory>${webappDirectory}</webappDirectory>
+					<startupUrls>
+						<startupUrl>App.html</startupUrl>
+					</startupUrls>
+				</configuration>
+			</plugin>
+
+			<!-- War -->
+			<!-- run: mvn clean package -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<webappDirectory>${webappDirectory}</webappDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>copy-war-contents-to-exploded-dir</id>
+						<phase>package</phase>
+						<goals>
+							<goal>exploded</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-war-plugin</artifactId>
+										<versionRange>[3.0.0,)</versionRange>
+										<goals>
+											<goal>exploded</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute>
+											<!-- Copy war contents on import and updates -->
+											<runOnConfiguration>true</runOnConfiguration>
+											<runOnIncremental>true</runOnIncremental>
+										</execute>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<!-- GWT BOM -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt</artifactId>
+				<version>${gwt.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>sdo</artifactId>
+			<version>0.9b</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>bindings</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>commons-pool</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>guava</artifactId>
+			<version>23.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>ot_100_5_0030</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>error_prone_annotations</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>j2objc-annotations</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>OT_100_5_0100</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>xerces</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.36.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+		</dependency>
+		<!-- GWT -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>

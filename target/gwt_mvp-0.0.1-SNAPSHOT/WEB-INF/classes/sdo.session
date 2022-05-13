@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SessionConfig>
+    <properties>
+        <property name="driverClassName" value="org.sqlite.JDBC"/>
+        <property name="connectionString" value="jdbc:sqlite:C:\\sdo_test.db"/>
+    </properties>
+    
+    <mapping id="SDO.Well">
+    	<class name="ru.itis.gwt_mvp.shared.Well"/>
+    	<entity name="ru/itis/gwt_mvp/shared/Well.entity"/>
+    	<view name="ru/itis/gwt_mvp/shared/Well.view"/>
+    </mapping>
+    
+    <mapping id="SDO.Equipment">
+    	<class name="ru.itis.gwt_mvp.shared.Equipment"/>
+    	<entity name="ru/itis/gwt_mvp/shared/Equipment.entity"/>
+    	<view name="ru/itis/gwt_mvp/shared/Equipment.view"/>
+    </mapping>
+</SessionConfig>

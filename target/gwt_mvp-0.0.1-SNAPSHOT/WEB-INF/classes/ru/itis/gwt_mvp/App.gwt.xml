@@ -1,0 +1,7 @@
+<module rename-to="App">
+  <inherits name="com.google.gwt.user.User"/>
+  <entry-point class="ru.itis.gwt_mvp.client.AppEntryPoint"/>
+  <source path="client"/>
+  <source path="shared"/>
+  <set-configuration-property name="CssResource.style" value="obf"/>
+</module>
